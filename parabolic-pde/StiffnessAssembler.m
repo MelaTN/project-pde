@@ -8,5 +8,5 @@ for i = 1:n
     A(i+1,i) = A(i+1,i) - 1/h;
     A(i+1,i+1) = A(i+1,i+1) + 1/h;
 end
-A = A(2:end-1, 2:end-1);
+A = A(2:end-1, 2:end-1);   % impose u(0)=u(1)=0
 end

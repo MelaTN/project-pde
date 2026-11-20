@@ -8,5 +8,5 @@ for i = 1:n % loop over subintervals
     M(i+1,i) = M(i+1,i) + h/6;
     M(i+1,i+1) = M(i+1,i+1) + h/3;
 end
-M = M(2:end-1, 2:end-1);
+M = M(2:end-1, 2:end-1);   % impose u(0)=u(1)=0
 end
