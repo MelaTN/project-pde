@@ -21,3 +21,7 @@ xlabel('x'); ylabel('u'); title('Numerical solution'); xlim([0 1])
 figure
 surf(t, x, sol, 'EdgeColor','none')
 xlabel('t'); ylabel('x'); zlabel('u')
+
+% Printing the error norms to the consol
+disp(['The L^∞(0,5; L²) error norm is ' num2str(EL2)])
+disp(['The L²(0,5; V) error norm is ' num2str(EV)])
