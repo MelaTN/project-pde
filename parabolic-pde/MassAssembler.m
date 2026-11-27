@@ -1,5 +1,5 @@
 function M = MassAssembler(x)
-% Computes the mass matrix on mesh x
+% Computes the mass matrix on mesh x. See Larson and Bengzon
     n = length(x)-1; % number of subintervals
     M = zeros(n+1,n+1); % allocate mass matrix
     for i = 1:n 

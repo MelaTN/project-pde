@@ -1,5 +1,5 @@
 function A = StiffnessAssembler(x)
-% Computes the stiffness matrix on mesh x
+% Computes the stiffness matrix on mesh x. See Larson and Bengzon
     n = length(x)-1;
     A = zeros(n+1,n+1);
     for i = 1:n
@@ -9,5 +9,5 @@ function A = StiffnessAssembler(x)
         A(i+1,i) = A(i+1,i) - 1/h;
         A(i+1,i+1) = A(i+1,i+1) + 1/h;
     end
-    A = A(2:end-1, 2:end-1);   % impose u(0)=u(1)=0
+    A = A(2:end-1, 2:end-1);   % Remove the boundary entries.
 end
