@@ -1,32 +1,17 @@
-theta = 0; % Choose 0 for forward Euler, 0.5 for CN and 1 for backward Euler
-h = 0.1; % mesh size
-x = 0:h:1; % mesh
-xin = x(2:end-1)'; % Interior nodes
-T = 5; % final time
+theta = 1; % Choose 0 for forward Euler, 0.5 for CN and 1 for backward Euler
+h = 0.01; % mesh size
+x = 0:h:1;
 dt = 0.025; % Time step
+T = 5; % Total time
 nsteps = round(T/dt); % Number of time steps
 
-M = MassAssembler(x);
-A = StiffnessAssembler(x);
-K = (1/pi^2)*A - 3*M;
+% Compute the numerical solution and the two error norms
+[sol, EL2, EV] = oneRun(theta,h,dt,T);
 
-sol = zeros(length(x),nsteps+1);
-sol(2:end-1,1) = sin(2*pi*xin);
-
-
-for i=2:nsteps+1
-    sol(2:end-1,i) = thetaMethod(sol(2:end-1,i-1), dt, theta, M, K);
-end
-
-% Computing error normes
-uex  = @(x,t) exp(-t).*sin(2*pi*x); 
-duex = @(x,t) 2*pi*exp(-t).*cos(2*pi*x);   % derivative in x
-
-
-% Numerical solution at times 0,1,2 and 5
+% Plot the numerical solution at times 0,1,2 and 5
 t  = (0:nsteps)*dt;
 figure; hold on
-for times = [5]
+for times = [5] %
     n = round(times/dt) + 1;
     plot(x, sol(:,n), '-')
 end
@@ -36,3 +21,7 @@ xlabel('x'); ylabel('u'); title('Numerical solution'); xlim([0 1])
 figure
 surf(t, x, sol, 'EdgeColor','none')
 xlabel('t'); ylabel('x'); zlabel('u')
+
+% Printing the error norms to the console
+disp(['The L^∞(0,5; L²) error norm is ' num2str(EL2)])
+disp(['The L²(0,5; V) error norm is ' num2str(EV)])
